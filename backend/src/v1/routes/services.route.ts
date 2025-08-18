@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
+import ServicesController from "../controllers/services.controller";
 
-const route=Router()
-route.get("",()=>{})
-route.post("",()=>{})
-route.patch("/:id",()=>{})
-route.delete("/:id",()=>{})
-const ServicesRoute=route
-export default ServicesRoute
+const route = Router();
 
+route.get("", ServicesController.getAllServices);
+route.post("", ServicesController.addService);
+route.patch("/:id", ServicesController.updateService);
+route.delete("/:id", ServicesController.deleteService);
+const ServicesRoute = route;
+export default ServicesRoute;
