@@ -10,7 +10,7 @@ const VerifyTokenMD = (req: Request, res: Response, next: NextFunction) => {
     if (user) {
       req.user = user;
     }
-    next()
+    next();
   } catch (e) {
     next(e);
   }

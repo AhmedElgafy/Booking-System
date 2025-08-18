@@ -1,8 +1,9 @@
 import { Router } from "express";
+import BookingController from "../controllers/booking.controller";
 
 const route = Router();
-route.post("", () => {});
-route.post("/me", () => {});
-route.post("/:id/cancel", () => {});
-const BookingRoute=route;
-export default BookingRoute
+route.post("", BookingController.createBooking);
+route.get("/me", BookingController.getBooking);
+route.patch("/:id/cancel", BookingController.cancelBooking);
+const BookingRoute = route;
+export default BookingRoute;

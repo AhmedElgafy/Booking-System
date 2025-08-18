@@ -23,7 +23,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use("/v1", V1Route);
 app.use(errorHandlerMW);
 app.use((req: Request, res: Response) => {
-  res.status(404).send({ massage: "this route is not found" });
+  res.status(404).send({ massage: "this route is not exist" });
   return;
 });
 

@@ -7,14 +7,10 @@ const setUser = async (userNew: Omit<User, "id">): Promise<User> => {
   const user = await prisma.user.create({ data: userNew });
   return user;
 };
-const getUser = async (user: User): Promise<User> => {
+const getUser = async (user: User): Promise<User|null> => {
   const existUser = await prisma.user.findUnique({
     where: { email: user.email, password: user.password },
   });
-  Schemas.UserSchema.parse(existUser);
-  if (!existUser) {
-    throw new Error("User not found");
-  }
   return existUser;
 };
 const UserServices = {

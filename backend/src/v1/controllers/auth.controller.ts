@@ -33,6 +33,7 @@ const login = async (
 ) => {
   try {
     const validUser = Schemas.UserSchema.parse(req.body);
+    console.log(validUser);
     const user = await UserServices.getUser(validUser as User);
     if (user) {
       const token = generateToken(user);
@@ -43,7 +44,7 @@ const login = async (
       );
       return res.status(200).send({ token: token });
     } else {
-      return res.status(400).send({ massage: "user is not exist" });
+      return res.status(404).send({ massage: "user is not exist" });
     }
   } catch (e) {
     next(e);

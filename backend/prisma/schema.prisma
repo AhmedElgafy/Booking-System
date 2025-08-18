@@ -44,9 +44,9 @@ model Service {
   image       Bytes?
   imageUrl    String?
   providerId  String
-  provider    User     @relation("ProviderServices", fields: [providerId], references: [id])
+  provider    User     @relation("ProviderServices", fields: [providerId], references: [id], onDelete: Cascade)
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   slots       Slot[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -59,7 +59,7 @@ model Slot {
   endTime   DateTime
   isBooked  Boolean  @default(false)
   serviceId String
-  service   Service  @relation(fields: [serviceId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   booking   Booking?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,9 +69,9 @@ model Slot {
 model Booking {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   slotId    String   @unique
-  slot      Slot     @relation(fields: [slotId], references: [id])
+  slot      Slot     @relation(fields: [slotId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

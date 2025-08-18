@@ -2,6 +2,7 @@ import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { PrismaClientKnownRequestError } from "../../generated/prisma/runtime/library";
 import { JsonWebTokenError } from "jsonwebtoken";
+import CustomZodError from "../utils/conflictError";
 
 const errorHandlerMW = (
   err: ErrorRequestHandler,
@@ -10,13 +11,20 @@ const errorHandlerMW = (
   next: NextFunction
 ) => {
   if (err) {
+    // if (err instanceof CustomZodError) {
+    //   console.log(err.flatten(), err.format());
+    //   res.status(400).send({
+    //     ...err.flatten().fieldErrors,
+    //     error_massage: err.format()._errors,
+    //   });
+    //   return;
+    // }
     if (err instanceof ZodError) {
-      res
-        .status(400)
-        .send({
-          ...err.flatten().fieldErrors,
-          error_massage: err.format()._errors,
-        });
+      console.log(err.flatten().fieldErrors);
+      res.status(400).send({
+        ...err.flatten().fieldErrors,
+        error_massage: err.format()._errors,
+      });
       return;
     }
     if (err instanceof PrismaClientKnownRequestError) {
@@ -31,6 +39,9 @@ const errorHandlerMW = (
           message: "Record not found.",
         });
       }
+      console.log(err);
+      res.status(500).send({ message: "Database Error" });
+      return;
     }
     if (err instanceof JsonWebTokenError) {
       return res.status(401).send({ massage: "you have to login first" });
