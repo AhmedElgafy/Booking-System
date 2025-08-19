@@ -53,5 +53,6 @@ const Schemas = {
   ServiceSchema,
   LoginSchema,
   UserSchema,
+  CategorySchema,
 };
 export default Schemas;

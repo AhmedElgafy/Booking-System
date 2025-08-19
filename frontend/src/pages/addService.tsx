@@ -1,53 +1,12 @@
-import React, { useEffect, useState } from "react";
-import type { InputI } from "../types/inputI";
-import { useFormik } from "formik";
-import { initialService, type Category, type Service } from "../types/models";
-import { serviceSchema } from "../validation/modelsSchema";
+import React from "react";
+import { type Service } from "../types/models";
 import CustomInput from "../components/UIs/customInput";
-import ServiceAPI from "../apis/servicesApi";
-import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import useData from "../components/pages/addService/useData";
+import CategoriesDD from "../components/pages/addService/categoriesDD";
 
 function AddService() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [unExpectedError, setUnExpectedError] = useState<string>("");
-  const [categories, setCategories] = useState<Category[]>([]);
-  const navigator = useNavigate();
-  const formik = useFormik<Service>({
-    initialValues: {
-      ...initialService,
-      providerId: Cookies.get("id") || "",
-      categoryId: "cmehbtfp40000urr8qaq35u8o",
-    },
-    onSubmit: async (values) => {
-      try {
-        setLoading(false);
-        const res = await ServiceAPI.addService(values);
-        navigator("/services");
-      } catch (e) {
-        if (e instanceof AxiosError) {
-          if (e.status == 400) {
-            formik.setErrors(e.response?.data);
-          }
-        }
-        setUnExpectedError("some thing wrong");
-      } finally {
-        setLoading(false);
-      }
-    },
-    validationSchema: serviceSchema,
-  });
-  const serviceInputs: InputI[] = [
-    { key: "title", label: "Name", type: "text" },
-    { key: "description", label: "Description", type: "text" },
-  ];
-  useEffect(() => {
-    if (unExpectedError) {
-      setUnExpectedError("");
-    }
-  }, [formik.values]);
-  console.log(formik.values, formik.errors);
+  const { formik, loading, serviceInputs } = useData();
+  console.log(formik.values);
   return (
     <section>
       <form
@@ -92,6 +51,16 @@ function AddService() {
             <span className="text-sm text-red-600">{formik.errors.image}</span>
           )}
         </div>
+        <CategoriesDD
+          value={formik.values.categoryId}
+          onChange={(e) => formik.setFieldValue("categoryId", e)}
+        />
+        {formik.errors.categoryId && (
+          <span className="text-sm text-red-600">
+            {formik.errors.categoryId}
+          </span>
+        )}
+
         <button
           disabled={loading}
           className="bg-blue-600 cursor-pointer hover:bg-blue-700 disabled:opacity-50 w-full py-2 rounded-sm text-white"

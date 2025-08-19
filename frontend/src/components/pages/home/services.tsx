@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from "react";
-import type { Service } from "../../../types/models";
-import ServiceAPI from "../../../apis/servicesApi";
-import { AxiosError } from "axios";
-import { API_BASE_URL } from "../../../consts/consts";
+import React from "react";
+import useData from "./useData";
+import ServiceCard from "../addService/serviceCard";
 
 function Services() {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  useEffect(() => {
-    const getServices = async () => {
-      try {
-        setLoading(true);
-        const res = await ServiceAPI.getAllServices();
-        setServices(res);
-      } catch (e) {
-        if (e instanceof AxiosError) {
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    getServices();
-  }, []);
+  const { loading, services, deleteService } = useData();
   return (
     <section className="mx-auto">
       <h1 className="font-semibold text-2xl mb-3 gap-3">Services</h1>
@@ -29,24 +11,24 @@ function Services() {
         {services.map((service, index) => {
           return (
             <React.Fragment key={index}>
-              <div>
-                <div className="">
-                  <img
-                    src={
-                      service.imageUrl
-                        ? `${API_BASE_URL}${service.imageUrl}`
-                        : "https://dummyimage.com/1000x1000/000/fff"
-                    }
-                    className="w-[301px] h-[170px]  rounded-sm overflow-hidden object-cover"
-                    alt=""
-                  />
-                </div>
-                <h1 className="font-semibold">{service.title}</h1>
-                <p className="text-sm text-gray-500">{service.description}</p>
-              </div>
+              <ServiceCard onDelete={deleteService} service={service} />
             </React.Fragment>
           );
         })}
+        {!services.length && !loading && (
+          <div className="h-[50vh] flex items-center w-full justify-center">
+            <p className="font-black text-5xl">There is no data</p>
+          </div>
+        )}
+        {loading && (
+          <div className="h-[50vh] flex items-center w-full justify-center">
+            <img
+              src="/loading.svg"
+              alt=""
+              className="size-5 animate-spin block"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

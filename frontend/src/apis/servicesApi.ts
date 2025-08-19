@@ -1,9 +1,23 @@
 import api from "../config/axiosInstance";
-import type { Service } from "../types/models";
+import type { Category, Service } from "../types/models";
 
-const getAllServices = async () => {
+const getAllServices = async (queryParam: {
+  categoryId: string;
+  title: string;
+}) => {
   try {
-    const res = await api.get<Service[]>("/services");
+    const res = await api.get<Service[]>("/services", { params: queryParam });
+    return res.data;
+  } catch (e) {
+    throw e;
+  }
+};
+type ServiceCat = Service & {
+  category: Category;
+};
+const getServiceById = async (id: string) => {
+  try {
+    const res = await api.get<ServiceCat>("/services/" + id);
     return res.data;
   } catch (e) {
     throw e;
@@ -13,20 +27,17 @@ const addService = async (
   service: Service,
   contentType: "multipart/form-data" | "application/json" = "application/json"
 ) => {
-    const formData=new FormData()
-    // Object.keys(service).map(key=>{
-    //     formData.append(key,service[key as keyof Service])
-    // })
+  const formData = new FormData();
+  formData.append("title", service.title);
+  formData.append("description", service.description);
+  console.log(service.image);
+  service.image && formData.append("image", service.image);
   try {
-    const res = await api.post<Service>(
-      "/services",
-      { service },
-      {
-        headers: {
-          "Content-Type": contentType,
-        },
-      }
-    );
+    const res = await api.post<Service>("/services", service, {
+      headers: {
+        "Content-Type": contentType,
+      },
+    });
     return res.data;
   } catch (e) {
     throw e;
@@ -64,5 +75,6 @@ const ServiceAPI = {
   addService,
   deleteService,
   updateService,
+  getServiceById,
 };
 export default ServiceAPI;

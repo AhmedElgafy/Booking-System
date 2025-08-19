@@ -51,10 +51,10 @@ export interface Slot {
   endTime: string;
   isBooked?: boolean;
   serviceId: string;
-  service?: Service;
-  booking?: Booking | null;
-  createdAt?: string;
-  updatedAt?: string;
+  // service?: Service;
+  // booking?: Booking | null;
+  // createdAt?: string;
+  // updatedAt?: string;
 }
 
 export interface Booking {

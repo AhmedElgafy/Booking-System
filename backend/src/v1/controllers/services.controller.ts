@@ -8,7 +8,11 @@ const addService = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.files);
   try {
+    if (req.file) {
+      req.body.image = req.file.buffer;
+    }
     const service = await ServiceServices.addService(
       req.body || {},
       req.user.id
@@ -20,17 +24,30 @@ const addService = async (
   }
 };
 const getAllServices = async (
-  req: Request<{}, Service>,
+  req: Request<{}, Service, {}, { categoryId: string; title: string }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const services = await ServiceServices.getServices();
+    const services = await ServiceServices.getServices(req.query);
     return res.status(200).send(services);
   } catch (e) {
     next(e);
   }
 };
+const getServiceById = async (
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const services = await ServiceServices.getServiceById(req.params.id);
+    return res.status(200).send(services);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const getServiceImage = async (
   req: Request<{ id: string }>,
   res: Response,
@@ -65,7 +82,6 @@ const updateService = async (
   next: NextFunction
 ) => {
   try {
-    let imageBuff = null;
     if (req.file) {
       const { buffer } = req.file;
       req.body.image = buffer;
@@ -85,5 +101,6 @@ const ServicesController = {
   getAllServices,
   addService,
   getServiceImage,
+  getServiceById,
 };
 export default ServicesController;

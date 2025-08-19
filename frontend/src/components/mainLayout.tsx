@@ -5,7 +5,7 @@ function MainLayout() {
   return (
     <>
       <Header />
-      <div className="px-[160px]">
+      <div className="px-[160px] my-10">
         <Outlet />
       </div>
     </>

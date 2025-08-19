@@ -33,7 +33,7 @@ const login = async (
 ) => {
   try {
     const validUser = Schemas.LoginSchema.parse(req.body);
-    console.log(validUser);
+    // console.log(validUser);
     const user = await UserServices.getUser(validUser as User);
     if (user) {
       const token = generateToken(user);

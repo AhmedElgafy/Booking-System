@@ -5,9 +5,10 @@ import uploader from "../config/multer";
 const route = Router();
 
 route.get("", ServicesController.getAllServices);
-route.post("", ServicesController.addService);
+route.post("", uploader.single("image"), ServicesController.addService);
+route.get("/:id", ServicesController.getServiceById);
 route.patch("/:id", uploader.single("image"), ServicesController.updateService);
 route.delete("/:id", ServicesController.deleteService);
-// route.get("/image/:id", ServicesController.getServiceImage);
+route.get("/image/:id", ServicesController.getServiceImage);
 const ServicesRoute = route;
 export default ServicesRoute;

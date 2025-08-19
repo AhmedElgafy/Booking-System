@@ -8,7 +8,7 @@ import {
 
 const route = Router();
 // Get slots by serviceId (query param)
-route.get("", getServiceSlot);
+route.get("/:id", getServiceSlot);
 // Create a new slot
 route.post("", createSlot);
 // Update a slot by id

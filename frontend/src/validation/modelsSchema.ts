@@ -23,7 +23,6 @@ export const serviceSchema = Yup.object({
       return true;
     })
     .notRequired(),
-  imageUrl: Yup.string().url("Invalid URL").notRequired(),
   providerId: Yup.string().required("Provider is required"),
   categoryId: Yup.string().required("Category is required"),
 });

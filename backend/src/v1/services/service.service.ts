@@ -1,9 +1,28 @@
 import { Service, User } from "../../generated/prisma";
 import prisma from "../config/db";
-import Schemas, { ValidService } from "../schemas/shemas";
+import Schemas from "../schemas/shemas";
 
-const getServices = async () => {
-  return prisma.service.findMany({ omit: { image: true } });
+const getServices = async ({
+  categoryId,
+  title,
+}: {
+  categoryId: string;
+  title: string;
+}) => {
+  return await prisma.service.findMany({
+    omit: { image: true },
+    where: {
+      ...(title && {
+        title: {
+          contains: title,
+          mode: "insensitive",
+        },
+      }),
+      ...(categoryId && {
+        categoryId: categoryId,
+      }),
+    },
+  });
 };
 const serviceImage = async (imageUrl: string) => {
   return prisma.service.findFirst({
@@ -12,8 +31,9 @@ const serviceImage = async (imageUrl: string) => {
   });
 };
 const addService = async (service: Service, userId: string) => {
+  // console.log(service);
   const validService = Schemas.ServiceSchema.parse(service);
-
+  console.log(validService);
   service.providerId = userId;
   let newService = await prisma.service.create({
     data: validService,
@@ -30,7 +50,6 @@ const addService = async (service: Service, userId: string) => {
 };
 const updateService = async (id: string, service: Partial<Service>) => {
   const validService = Schemas.ServiceSchema.partial().parse(service);
-  console.log(validService);
   let newService = await prisma.service.update({
     where: { id: id },
     data: validService,
@@ -48,11 +67,19 @@ const updateService = async (id: string, service: Partial<Service>) => {
 const deleteService = (id: string) => {
   return prisma.service.delete({ where: { id: id } });
 };
+const getServiceById = async (id: string) => {
+  return await prisma.service.findUnique({
+    where: { id: id },
+    omit: { image: true },
+    include: { category: true },
+  });
+};
 const ServiceServices = {
   getServices,
   deleteService,
   updateService,
   addService,
   serviceImage,
+  getServiceById,
 };
 export default ServiceServices;
