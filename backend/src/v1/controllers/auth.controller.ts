@@ -16,11 +16,11 @@ const signUp = async (
     delete noPassUser.password;
     const token = generateToken(user);
     res.setHeader("Authentication", token);
-    res.setHeader(
-      "Set-Cookie",
-      `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
-    );
-    res.send(noPassUser).status(200);
+    // res.setHeader(
+    //   "Set-Cookie",
+    //   `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
+    // );
+    res.send({ user: noPassUser, token: token }).status(200);
     return;
   } catch (e) {
     next(e);
@@ -32,17 +32,17 @@ const login = async (
   next: NextFunction
 ) => {
   try {
-    const validUser = Schemas.UserSchema.parse(req.body);
+    const validUser = Schemas.LoginSchema.parse(req.body);
     console.log(validUser);
     const user = await UserServices.getUser(validUser as User);
     if (user) {
       const token = generateToken(user);
       res.setHeader("Authentication", token);
-      res.setHeader(
-        "Set-Cookie",
-        `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
-      );
-      return res.status(200).send({ token: token });
+      // res.setHeader(
+      //   "Set-Cookie",
+      //   `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
+      // );
+      return res.status(200).send({ token: token, user: user });
     } else {
       return res.status(404).send({ massage: "user is not exist" });
     }

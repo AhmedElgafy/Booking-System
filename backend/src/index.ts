@@ -13,7 +13,12 @@ import errorHandlerMW from "./v1/middlewares/errorHandler";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONT_BASE_URL, // your frontend URL
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use((req: Request, res: Response, next: NextFunction) => {

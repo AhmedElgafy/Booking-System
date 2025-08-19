@@ -8,7 +8,7 @@ import ServicesController from "./controllers/services.controller";
 
 const route = Router();
 route.use("/auth", AuthRoute);
-route.get("/services/image/:id", ServicesController.getServiceImage);
+route.get("/service/image/:id", ServicesController.getServiceImage);
 route.use(VerifyTokenMD);
 route.use("/services", ServicesRoute);
 route.use("/slots", SlotsRoute);
