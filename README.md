@@ -58,7 +58,7 @@ An Entity‑Relationship Diagram illustrating the schema (Users, Services, Categ
 
 Comprehensive API collection with routes, request/response samples, and auth flows:
 
-[View Booking System API Documentation in Postman](https://tabby2-0436.postman.co/workspace/Booking-System-API~52ea10d5-30b0-4cf7-8fde-5436d1d0bcb0/folder/27400850-61a4e2d1-1d30-4c49-a1cd-990f1ea233d8?action=share&creator=27400850&ctx=documentation)
+[View Booking System API Documentation in Postman](https://documenter.getpostman.com/view/27400850/2sB3BKFoao)
 
 ---
 
