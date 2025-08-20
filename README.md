@@ -83,8 +83,12 @@ Then, start your frontend similarly under its directory (e.g., `npm run dev` for
 ## Environment Variables
 
 ```env
+# Backend
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
 JWT_SECRET=your_jwt_secret
+PORT=30001
+# Frontend
+VITE_API_BASE_URL=http://localhost:3001/v1
 ```
 
 ---
@@ -103,7 +107,7 @@ JWT_SECRET=your_jwt_secret
  └── schema.prisma
 
 /frontend
- └── [your React or Next.js app]
+ └── [React]
 ```
 
 ---
@@ -112,9 +116,9 @@ JWT_SECRET=your_jwt_secret
 
 - **Backend**: Node.js, Express, Prisma ORM  
 - **Database**: PostgreSQL (or MongoDB)  
-- **Validation**: Zod  
+- **Validation**: Zod , Yup
 - **Auth**: JWT (`jsonwebtoken`)  
-- **Frontend**: React or Next.js (roles-based UI)  
+- **Frontend**: React (roles-based UI), Redux, Axios
 
 ---
 
