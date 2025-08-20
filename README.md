@@ -62,7 +62,7 @@ Comprehensive API collection with routes, request/response samples, and auth flo
 
 ---
 
-## Getting Started
+## Getting Started Backend
 
 ```bash
 git clone <repo-url>
@@ -75,9 +75,15 @@ npx prisma generate
 
 npm run dev
 ```
+Then, start your frontend similarly under its directory 
+```bash
+cd frontend
+npm install
 
-Then, start your frontend similarly under its directory (e.g., `npm run dev` for Next.js).
+# Create .env file with necessary configs (see below)
 
+npm run dev
+```
 ---
 
 ## Environment Variables
