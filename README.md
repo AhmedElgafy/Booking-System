@@ -48,7 +48,7 @@ A role-based booking platform for online consultation services, allowing **Provi
 
 An Entity‑Relationship Diagram illustrating the schema (Users, Services, Categories, Slots, Bookings):
 
-![ERD placeholder](https://via.placeholder.com/800x400.png?text=ERD+goes+here)
+![Description of the image](https://github.com/user-attachments/assets/58d19bfc-b9a4-462f-92a0-58398b59f34b)
 
 > Replace this with your exported ERD image or embedded screenshot.
 
