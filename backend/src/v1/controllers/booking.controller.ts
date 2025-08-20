@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import BookingService from "../services/booking.service";
+import { scheduleReminder } from "../scheduler/reminder";
+import prisma from "../config/db";
 
 export const createBooking = async (
   req: Request,
@@ -8,6 +10,14 @@ export const createBooking = async (
 ) => {
   try {
     const booking = await BookingService.addBook(req.body);
+    const slot = await prisma.slot.findUnique({
+      where: { id: booking.slotId },
+    });
+    scheduleReminder({
+      slotTime: slot?.endTime.toISOString() || "",
+      userEmail: req.user.email,
+      userName: req.user.name,
+    });
     res.status(201).json(booking);
   } catch (error: any) {
     next(error);

@@ -5,10 +5,12 @@ import {
   updateSlot,
   deleteSlot,
 } from "../controllers/slots.controller";
+import VerifyTokenMD from "../middlewares/verifyToken";
 
 const route = Router();
 // Get slots by serviceId (query param)
-route.get("/:id", getServiceSlot);
+route.get("/:serviceId", getServiceSlot);
+route.use(VerifyTokenMD);
 // Create a new slot
 route.post("", createSlot);
 // Update a slot by id

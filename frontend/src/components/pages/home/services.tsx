@@ -3,7 +3,7 @@ import useData from "./useData";
 import ServiceCard from "../addService/serviceCard";
 
 function Services() {
-  const { loading, services, deleteService } = useData();
+  const { loading, services } = useData();
   return (
     <section className="mx-auto">
       <h1 className="font-semibold text-2xl mb-3 gap-3">Services</h1>
@@ -11,7 +11,7 @@ function Services() {
         {services.map((service, index) => {
           return (
             <React.Fragment key={index}>
-              <ServiceCard onDelete={deleteService} service={service} />
+              <ServiceCard  service={service} />
             </React.Fragment>
           );
         })}

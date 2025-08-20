@@ -7,6 +7,9 @@ import MainLayout from "./components/mainLayout";
 import ServicesPage from "./pages/services/services";
 import AddService from "./pages/addService";
 import CreateSlots from "./pages/services/createSlots";
+import Booking from "./pages/booking";
+import NotFound from "./pages/notFound";
+import PrivatePages from "./pages/privatePages";
 
 const router = createBrowserRouter([
   {
@@ -16,10 +19,16 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
       },
-      { path: "/providers", element: <>Provider</> },
+      { path: "/booking", element: <Booking /> },
       { path: "/services", element: <ServicesPage /> },
-      { path: "/services/:id", element: <AddService /> },
-      { path: "/services/slots/:id", element: <CreateSlots/> },
+      {element:<PrivatePages/>,children:[
+        { path: "/services/:id", element: <AddService /> },
+      ]},
+      { path: "/services/slots/:id", element: <CreateSlots /> },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
   {

@@ -1,13 +1,13 @@
 import { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import ServiceAPI from "../../../apis/servicesApi";
-import type { Category, Service } from "../../../types/models";
+import type { Service } from "../../../types/models";
 import { useSearchParams } from "react-router-dom";
 
 const useData = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const getServices = async () => {
     try {
       setLoading(true);
@@ -23,21 +23,14 @@ const useData = () => {
       setLoading(false);
     }
   };
-  const deleteService = async (id: string) => {
-    try {
-      await ServiceAPI.deleteService(id);
-      getServices();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  
   useEffect(() => {
     getServices();
   }, [searchParams]);
   return {
     services,
     loading,
-    deleteService,
+    
   };
 };
 export default useData;

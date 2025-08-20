@@ -1,15 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import SlotService from "../services/slots.services";
-import Schemas from "../schemas/shemas";
 
 // Get slots by serviceId
 export const getServiceSlot = async (
-  req: Request<{}, {}, {}, { serviceId: string }>,
+  req: Request<{ serviceId: string }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const slots = await SlotService.getSlotByService(req.query.serviceId);
+    const slots = await SlotService.getSlotByService(req.params.serviceId);
     return res.status(200).send(slots);
   } catch (e) {
     next(e);

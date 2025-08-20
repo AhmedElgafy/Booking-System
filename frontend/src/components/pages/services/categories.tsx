@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import type { Category } from "../../../types/models";
 import CategoryApi from "../../../apis/categoryApi";
 import { useSearchParams } from "react-router-dom";

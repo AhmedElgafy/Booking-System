@@ -7,6 +7,9 @@ const setUser = async (userNew: Omit<User, "id">): Promise<User> => {
   const user = await prisma.user.create({ data: userNew });
   return user;
 };
+const getMe = async (userId: string) => {
+  return await prisma.user.findUnique({ where: { id: userId } });
+};
 const getUser = async (user: User) => {
   const existUser = await prisma.user.findUnique({
     where: { email: user.email, password: user.password },
@@ -17,5 +20,6 @@ const getUser = async (user: User) => {
 const UserServices = {
   getUser,
   setUser,
+  getMe
 };
 export default UserServices;

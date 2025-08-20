@@ -29,6 +29,7 @@ export interface Category {
   name: string;
   services?: Service[];
 }
+export type BookingId = { bookingId: string };
 
 export interface Service {
   id: string;

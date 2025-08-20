@@ -3,12 +3,28 @@ import { type Service } from "../types/models";
 import CustomInput from "../components/UIs/customInput";
 import useData from "../components/pages/addService/useData";
 import CategoriesDD from "../components/pages/addService/categoriesDD";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 
 function AddService() {
-  const { formik, loading, serviceInputs } = useData();
+  const { formik, loading, serviceInputs, deleteService, id } = useData();
+  const user = useSelector((state: RootState) => state.user);
+
   console.log(formik.values);
+  console.error(formik.errors);
   return (
     <section>
+      {user.user?.id == formik.values.providerId && id != "add" && (
+        <img
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteService(formik.values.id);
+          }}
+          className="fill-amber-700 block ml-auto hover:opacity-50 cursor-pointer"
+          src="/delete.svg"
+          alt="delete"
+        />
+      )}
       <form
         action=""
         className="space-y-3"

@@ -16,10 +16,6 @@ const signUp = async (
     delete noPassUser.password;
     const token = generateToken(user);
     res.setHeader("Authentication", token);
-    // res.setHeader(
-    //   "Set-Cookie",
-    //   `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
-    // );
     res.send({ user: noPassUser, token: token }).status(200);
     return;
   } catch (e) {
@@ -33,15 +29,10 @@ const login = async (
 ) => {
   try {
     const validUser = Schemas.LoginSchema.parse(req.body);
-    // console.log(validUser);
     const user = await UserServices.getUser(validUser as User);
     if (user) {
       const token = generateToken(user);
       res.setHeader("Authentication", token);
-      // res.setHeader(
-      //   "Set-Cookie",
-      //   `token=${token}; Max-Age=${24 * 60 * 60 * 1000}`
-      // );
       return res.status(200).send({ token: token, user: user });
     } else {
       return res.status(404).send({ massage: "user is not exist" });
@@ -50,8 +41,21 @@ const login = async (
     next(e);
   }
 };
+const getMe = async (
+  req: Request<{}, User>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await UserServices.getMe(req.user.id);
+    return res.status(200).send(user);
+  } catch (e) {
+    next(e);
+  }
+};
 const AuthController = {
   signUp,
   login,
+  getMe,
 };
 export default AuthController;

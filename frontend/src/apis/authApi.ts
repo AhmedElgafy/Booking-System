@@ -9,13 +9,14 @@ const signUp = async (data: User) => {
       data
     );
     Cookies.set("token", res.data.token);
-    Object.keys(res.data.user).map((key) => {
-      Cookies.set(key, res.data.user[key as keyof User] || "", { expires: 1 });
-    });
+
     return res.data;
   } catch (e) {
     throw e;
   }
+};
+const getMe = async () => {
+  return (await api.get<User>("/auth/me")).data;
 };
 const login = async (data: User) => {
   try {
@@ -35,6 +36,7 @@ const login = async (data: User) => {
 };
 const AuthApi = {
   signUp,
+  getMe,
   login,
 };
 export default AuthApi;

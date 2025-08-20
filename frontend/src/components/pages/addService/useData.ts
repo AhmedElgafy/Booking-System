@@ -6,17 +6,20 @@ import ServiceAPI from "../../../apis/servicesApi";
 import type { InputI } from "../../../types/inputI";
 import { type Service, initialService } from "../../../types/models";
 import { serviceSchema } from "../../../validation/modelsSchema";
-import Cookies from "js-cookie";
+import type { RootState } from "../../../redux/store";
+import { useSelector } from "react-redux";
 
 const useData = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [unExpectedError, setUnExpectedError] = useState<string>("");
+  const user = useSelector((state: RootState) => state.user);
+
   const { id } = useParams<{ id: string }>();
   const navigator = useNavigate();
   const formik = useFormik<Service>({
     initialValues: {
       ...initialService,
-      providerId: Cookies.get("id") || "",
+      providerId: user.user?.id || "",
     },
     onSubmit: async (values) => {
       try {
@@ -54,6 +57,14 @@ const useData = () => {
       formik.setValues(res);
     } catch {}
   };
+  const deleteService = async (id: string) => {
+    try {
+      await ServiceAPI.deleteService(id);
+      navigator("/services", { replace: true });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     if (unExpectedError) {
       setUnExpectedError("");
@@ -69,6 +80,8 @@ const useData = () => {
     unExpectedError,
     formik,
     serviceInputs,
+    deleteService,
+    id,
   };
 };
 export default useData;
