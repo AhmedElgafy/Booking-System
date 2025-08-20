@@ -93,6 +93,7 @@ npm run dev
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
 JWT_SECRET=your_jwt_secret
 PORT=30001
+FRONT_BASE_URL="http://localhost:5173" #For Cors
 # Frontend
 VITE_API_BASE_URL=http://localhost:3001/v1
 ```
