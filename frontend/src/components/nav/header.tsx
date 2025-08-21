@@ -37,7 +37,10 @@ function Header() {
       <div className="space-x-5">
         {navItems
           .filter((ele) => {
-            if (user.user?.role == "USER" && ele.role == "PROVIDER") {
+            if (
+              (user.user?.role || "USER") == "USER" &&
+              ele.role == "PROVIDER"
+            ) {
               return false;
             } else {
               return true;
