@@ -48,7 +48,7 @@ A role-based booking platform for online consultation services, allowing **Provi
 
 An Entity‑Relationship Diagram illustrating the schema (Users, Services, Categories, Slots, Bookings):
 
-![ERD placeholder](https://via.placeholder.com/800x400.png?text=ERD+goes+here)
+![Description of the image](https://github.com/user-attachments/assets/58d19bfc-b9a4-462f-92a0-58398b59f34b)
 
 > Replace this with your exported ERD image or embedded screenshot.
 
@@ -58,11 +58,11 @@ An Entity‑Relationship Diagram illustrating the schema (Users, Services, Categ
 
 Comprehensive API collection with routes, request/response samples, and auth flows:
 
-[View Booking System API Documentation in Postman](https://tabby2-0436.postman.co/workspace/Booking-System-API~52ea10d5-30b0-4cf7-8fde-5436d1d0bcb0/folder/27400850-61a4e2d1-1d30-4c49-a1cd-990f1ea233d8?action=share&creator=27400850&ctx=documentation)
+[View Booking System API Documentation in Postman](https://documenter.getpostman.com/view/27400850/2sB3BKFoao)
 
 ---
 
-## Getting Started
+## Getting Started Backend
 
 ```bash
 git clone <repo-url>
@@ -75,16 +75,27 @@ npx prisma generate
 
 npm run dev
 ```
+Then, start your frontend similarly under its directory 
+```bash
+cd frontend
+npm install
 
-Then, start your frontend similarly under its directory (e.g., `npm run dev` for Next.js).
+# Create .env file with necessary configs (see below)
 
+npm run dev
+```
 ---
 
 ## Environment Variables
 
 ```env
+# Backend
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
 JWT_SECRET=your_jwt_secret
+PORT=30001
+FRONT_BASE_URL="http://localhost:5173" #For Cors
+# Frontend
+VITE_API_BASE_URL=http://localhost:3001/v1
 ```
 
 ---
@@ -103,7 +114,7 @@ JWT_SECRET=your_jwt_secret
  └── schema.prisma
 
 /frontend
- └── [your React or Next.js app]
+ └── [React]
 ```
 
 ---
@@ -112,9 +123,9 @@ JWT_SECRET=your_jwt_secret
 
 - **Backend**: Node.js, Express, Prisma ORM  
 - **Database**: PostgreSQL (or MongoDB)  
-- **Validation**: Zod  
+- **Validation**: Zod , Yup
 - **Auth**: JWT (`jsonwebtoken`)  
-- **Frontend**: React or Next.js (roles-based UI)  
+- **Frontend**: React (roles-based UI), Redux, Axios
 
 ---
 
