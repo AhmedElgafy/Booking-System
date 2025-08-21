@@ -100,6 +100,13 @@ VITE_API_BASE_URL=http://localhost:3001/v1
 
 ---
 
+---
+## If you have Docker just run this command in the terminal 
+```bash
+docker-compose up --build
+```
+---
+
 ## Structure
 
 ```
