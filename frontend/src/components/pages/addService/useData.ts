@@ -50,6 +50,7 @@ const useData = () => {
   const serviceInputs: InputI[] = [
     { key: "title", label: "Name", type: "text" },
     { key: "description", label: "Description", type: "text" },
+    { key: "price", label: "price", type: "number" },
   ];
   const getServiceById = async (id: string) => {
     try {

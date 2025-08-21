@@ -32,7 +32,10 @@ const serviceImage = async (imageUrl: string) => {
 };
 const addService = async (service: Service, userId: string) => {
   // console.log(service);
-  const validService = Schemas.ServiceSchema.parse(service);
+  const validService = Schemas.ServiceSchema.parse({
+    ...service,
+    price: service.price ? +service.price : 0,
+  });
   console.log(validService);
   service.providerId = userId;
   let newService = await prisma.service.create({
@@ -49,7 +52,10 @@ const addService = async (service: Service, userId: string) => {
   return newService;
 };
 const updateService = async (id: string, service: Partial<Service>) => {
-  const validService = Schemas.ServiceSchema.partial().parse(service);
+  const validService = Schemas.ServiceSchema.partial().parse({
+    ...service,
+    price: service.price ? +service.price : 0,
+  });
   let newService = await prisma.service.update({
     where: { id: id },
     data: validService,

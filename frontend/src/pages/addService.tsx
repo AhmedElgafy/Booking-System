@@ -41,9 +41,12 @@ function AddService() {
                 key={input.key}
                 label={input.label}
                 onChange={(e) => {
-                  formik.setFieldValue(input.key, e);
+                  formik.setFieldValue(
+                    input.key,
+                    input.type == "number" ? +e : e
+                  );
                 }}
-                type="text"
+                type={input.type}
                 value={formik.values[input.key as keyof Service] as string}
               ></CustomInput>
             </React.Fragment>

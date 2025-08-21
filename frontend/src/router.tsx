@@ -10,6 +10,7 @@ import CreateSlots from "./pages/services/createSlots";
 import Booking from "./pages/booking";
 import NotFound from "./pages/notFound";
 import PrivatePages from "./pages/privatePages";
+import Categories from "./pages/categories";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         { path: "/services/:id", element: <AddService /> },
       ]},
       { path: "/services/slots/:id", element: <CreateSlots /> },
+      { path: "/categories", element: <Categories /> },
       {
         path: "*",
         element: <NotFound />,

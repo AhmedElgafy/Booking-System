@@ -11,6 +11,7 @@ export const initialService: Service = {
   providerId: "",
   categoryId: "",
   id: "",
+  price: 0
 };
 
 export const initialSlot = {
@@ -35,15 +36,16 @@ export interface Service {
   id: string;
   title: string;
   description: string;
+  price: number;
   image?: File | null;
   imageUrl?: string | null;
   providerId: string;
   provider?: User;
   categoryId: string;
-//   category?: Category;
-//   slots?: Slot[];
-//   createdAt?: string;
-//   updatedAt?: string;
+  //   category?: Category;
+  //   slots?: Slot[];
+  //   createdAt?: string;
+  //   updatedAt?: string;
 }
 
 export interface Slot {

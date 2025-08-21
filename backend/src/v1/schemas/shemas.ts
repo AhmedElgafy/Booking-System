@@ -26,6 +26,7 @@ export const ServiceSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   providerId: z.string().cuid("Invalid user ID"),
   description: z.string().min(10, "Description must be at least 10 characters"),
+  price: z.number().positive("Price must be greater than 0"),
   image: z.instanceof(Buffer).optional(),
   categoryId: z.string().cuid("Invalid category ID"),
 });

@@ -7,6 +7,7 @@ export const categorySchema = Yup.object({
 export const serviceSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
+  price: Yup.number().min(1).required("number is required"),
   image: Yup.mixed()
     .test("fileType", "Only JPG files are allowed", (value) => {
       if (!value) return true;

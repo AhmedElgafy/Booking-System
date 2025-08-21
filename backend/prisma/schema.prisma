@@ -42,6 +42,7 @@ model Service {
   title       String
   description String
   image       Bytes?
+  price       Float    @default(0)
   imageUrl    String?
   providerId  String
   provider    User     @relation("ProviderServices", fields: [providerId], references: [id], onDelete: Cascade)

@@ -28,6 +28,7 @@ CREATE TABLE "public"."Service" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "image" BYTEA,
+    "price" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "imageUrl" TEXT,
     "providerId" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,

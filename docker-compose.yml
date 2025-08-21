@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: booking_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: booking
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: booking_backend
+    restart: always
+    environment:
+      DATABASE_URL: postgres://admin:password@db:5432/booking
+      JWT_SECRET: supersecret
+      FRONT_BASE_URL: http://localhost:5173
+      PORT: "3001"
+    ports:
+      - "5000:3001"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: booking_frontend
+    restart: always
+    environment:
+      VITE_API_BASE_URL: http://localhost:5000/v1
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

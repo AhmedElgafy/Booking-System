@@ -19,6 +19,11 @@ function CategoriesDD({
   useEffect(() => {
     getCategories();
   }, []);
+  useEffect(() => {
+    if (!value) {
+      onChange(categories[0]?.id || "");
+    }
+  }, [categories]);
   return (
     <select value={value} onChange={(e) => onChange(e.target.value)}>
       {categories.map((category) => {

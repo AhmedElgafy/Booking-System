@@ -4,16 +4,15 @@ import { Outlet } from "react-router-dom";
 
 function PrivatePages() {
   const user = useSelector((state: RootState) => state.user);
+  if (user.user?.role == "PROVIDER") {
+    return <Outlet />;
+  }
 
   return (
     <div>
-      {user.user?.role == "PROVIDER" ? (
-        <Outlet/>
-      ) : (
-        <div className="h-[70vh] w-full flex justify-center items-center">
-          <p className="text-5xl">403 - This route for providers only</p>
-        </div>
-      )}
+      <div className="h-[70vh] w-full flex justify-center items-center">
+        <p className="text-5xl">403 - This route for providers only</p>
+      </div>
     </div>
   );
 }

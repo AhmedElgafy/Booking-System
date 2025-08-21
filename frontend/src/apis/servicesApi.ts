@@ -30,6 +30,7 @@ const addService = async (
   const formData = new FormData();
   formData.append("title", service.title);
   formData.append("description", service.description);
+  formData.append("price", String(service.price));
   console.log(service.image);
   service.image && formData.append("image", service.image);
   try {
